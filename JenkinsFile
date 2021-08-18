@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Get Latest Sourcecode') {
+            steps {
+	        git 'https://github.com/nehasmalviya/Jenkins_multijob_pipeline_code'
+            }
+        }
+        stage('Compile') {
+            steps {
+                 sh "mvn clean compile"
+            }
+        }
+        stage('Regression Test') {
+            steps {
+				//input message: 'Are you sure to proceed to next step? ', ok: 'Yes'
+               sh "mvn test"
+            }
+        }
+        stage('Security Test') {
+            steps {
+				//input message: 'Are you sure to proceed to next step? ', ok: 'Yes'
+               sh "mvn test"
+            }
+        }
+    }
+}
